@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+#define SIZE 100
+char queue[SIZE][50];
+int front = 0, rear = -1;
+void enqueue(char element[]) {
+    if (rear == SIZE - 1) {
+        printf("Queue Overflow!\n");
+        return;
+    }
+    rear++;
+    strcpy(queue[rear], element);
+}
+void dequeue(char result[]) {
+    if (front > rear) {
+        printf("Queue Underflow!\n");
+        return;
+    }
+    strcpy(result, queue[front]);
+    front++;
+}
+void displayQueue() {
+    printf("Current Queue: [ ");
+    for (int i = front; i <= rear; i++) {
+        printf("\"%s\" ", queue[i]);
+    }
+    printf("]\n");
+}
+int isPresent(char key[]) {
+    for (int i = front; i <= rear; i++) {
+        if (strcmp(queue[i], key) == 0)
+            return 1;
+    }
+    return 0;
+}
+int main() {
+    char removed[50];
+    enqueue("Compiler");
+    enqueue("Firewall");
+    enqueue("Algorithm");
+    enqueue("Protocol");
+    enqueue("Cache");
+    dequeue(removed);
+    printf("Dequeued: %s\n", removed);
+    dequeue(removed);
+    printf("Dequeued: %s\n", removed);
+    displayQueue();  
+    enqueue("Virtualization");
+    displayQueue();
+    dequeue(removed);
+    printf("Dequeued: %s\n", removed);
+    displayQueue();
+    enqueue("Cloud");
+    displayQueue();
+    printf("Is 'Protocol' present? %s\n", isPresent("Protocol") ? "Yes" : "No");
+    enqueue("Machine Learning");
+    displayQueue();
+    dequeue(removed);
+    printf("Dequeued: %s\n", removed);
+    displayQueue();
+    return 0;
+}
